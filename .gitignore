@@ -10,6 +10,9 @@ browse.vc.db*
 /install
 /log
 /bags
+dist/
+.env
+.env.production
 
 # javascript
 node_modules
@@ -21,6 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 *.tsbuildinfo
+.astro/
 
 # terraform
 **/.terraform/*
