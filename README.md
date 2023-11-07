@@ -14,3 +14,17 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## Deploy
+
+To vercel, via vercel CLI (initially, see below).  
+Vercel is set up to watch the GitHub repo and deploy everything thats on the main branch to `prod`.
+`prod` here is set up to be the `me.kf-it.com` domain for now. But all this config is set in vercels project settings
+through the UI.
+
+Initially I ran:
+
+```bash
+npm install -g vercel
+vercel
+```
