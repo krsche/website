@@ -1,0 +1,26 @@
+---
+import { Popover } from "@headlessui/react";
+
+interface Props {
+  className?: String
+}
+const { className="" } = Astro.props
+
+const quote = "Lorem impsum dolor sit amet."
+---
+
+<Popover className={`${className}`}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="flex items-center justify-between border-t-2 border-gray-100 py-6 text-xs" >
+      <!-- Quote (left) -->
+      <span class="self-start">{quote}</span>
+
+      <!-- Links -->
+      <div class="flexitems-center justify-end">
+        <ul class="flex flex-col xxs:flex xxs ml-2">
+          {["Imprint", "Data Protection"].map((o) => <li class="pb-0.5"><a href={"/" + o.toString()} class="whitespace-nowrap text-gray-500 hover:text-gray-950 capitalize">{o}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</Popover>
