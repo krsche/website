@@ -2,10 +2,14 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 interface Props {
-  title: string;
+  title?: string;
 }
 
-const { title } = Astro.props;
+const slugNoSlash = Astro.url.pathname.substring(1)
+const pageName = slugNoSlash == "" ? "Home" : slugNoSlash.charAt(0).toUpperCase() + slugNoSlash.substring(1)
+const defaultTitle = "KF | " + pageName
+
+const { title=defaultTitle } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,7 +25,7 @@ const { title } = Astro.props;
   <body class="">
     <div class="h-screen" >
       <Header className="sticky top-0 z-10 h-20 sm:h-24 w-full"/>
-      <div class="h-[calc(100vh-5rem)] sm:h-[calc(100vh-96px)]">
+      <div class="h-[calc(100vh-5rem)] sm:h-[calc(100vh-96px)] py-4 px-4">
         <slot/>
       </div>
       <Footer className="" />
