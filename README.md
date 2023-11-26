@@ -28,3 +28,16 @@ Initially I ran:
 npm install -g vercel
 vercel
 ```
+
+## Design notes
+
+- Screen Width
+  - Design Minimum: 320px
+  - Breakpoints: 400px (xxs), 520px (xs), 640px (sm), 768px (md), 1024px (lg), 1280px (xl), 1536px (2xl)
+  - Breakpoint strategy: Default design to smallest width and modify for larger screens ("mx-2 xs:mx-4")
+  - Refer to: <https://tailwindcss.com/docs/responsive-design>
+- Design System
+  - Use [HeadlessUI](https://headlessui.com/) unstyled components whereever possible
+  - Use [TailwindCSS](https://tailwindcss.com/) instead of raw CSS for styling whereever possible
+  - Design in black/white first, add color later
+  - Avoid client-side javascript as much as possible
