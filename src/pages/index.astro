@@ -1,12 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Default from "../layouts/Default.astro";
 import { Image } from 'astro:assets';
 // import portrait from '../assets/images/portrait.jpg'
 import portrait from '../assets/images/placeholder.svg'
 
 ---
 
-<Layout>
+<Default>
   <div class="h-full flex flex-col justify-center items-center">
     <div class="">
       <Image src={portrait} alt="Portrait" class="w-32 h-28 md:w-40 md:h-32 xl:w-48 xl:h-36 hover:mb-10 mt-2 hover:mt-4 rounded-3xl object-cover hover:rotate-[26deg] transition-all"/>
@@ -30,5 +30,4 @@ import portrait from '../assets/images/placeholder.svg'
     <div class="h-0 xs:h-[10px] lg:h-[4rem]"></div> <!-- This div pushes the other content up on certain screen sizes making things look better -->
     <!-- TODO: Fix layout on screens with low height (320px landscape?) -->
   </div>
-
-</Layout>
+</Default>

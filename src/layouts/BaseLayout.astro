@@ -25,9 +25,9 @@ const { title=defaultTitle } = Astro.props;
   <body class="">
     <div class="h-screen" >
       <Header className="sticky top-0 z-10 h-20 sm:h-24 w-full"/>
-      <div class="h-[calc(100vh-5rem)] sm:h-[calc(100vh-96px)] py-4 px-4">
+      <main>
         <slot/>
-      </div>
+      </main>
       <Footer className="" />
     </div>
   </body>

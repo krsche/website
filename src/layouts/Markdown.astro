@@ -1,9 +1,11 @@
 ---
-import Layout from "./Layout.astro";
+import BaseLayout from "./BaseLayout.astro";
 ---
 
-<Layout>
-  <div class="prose">
-    <slot />
+<BaseLayout>
+  <div class="min-h-full w-full flex justify-around py-4 px-4 ">
+    <div class="w-full prose">
+      <slot class=""/>
+    </div>
   </div>
-</Layout>
+</BaseLayout>
