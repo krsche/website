@@ -39,8 +39,9 @@ console.log(page_keys)
     <div class="flex items-center justify-between h-20 sm:h-24">
       <!-- Logo (left) -->
       <div class="flex justify-start">
-        <a href="/">
-          <Image src={kfLogo} alt="KF Logo"} class="mx-6 mt-1 m-0 h-9 w-12"/>
+        <a href="/" class="grid grid-cols-1">
+          <Image src={kfLogo} alt="KF Logo"} class="mx-6 mt-1 m-0 h-9 w-12 row-start-1 col-start-1 z-10"/>
+          <div class="mx-6 mt-1 m-0 h-9 w-12 row-start-1 col-start-1 bg-gradient-to-r from-purple-300 to-cyan-300 blur-2xl"/>
         </a>
       </div>
   
@@ -53,10 +54,11 @@ console.log(page_keys)
         </div>
       </button>
   
-      <div class="hidden xs:block flexitems-center justify-end">
-        <ul class="flex">
-          {page_keys.map((o) => <li><a href={"/" + o.toString()} class="whitespace-nowrap p-3 text-sm font-medium text-gray-700 hover:text-black capitalize">{o}</a></li>)}
+      <div class="hidden xs:grid grid-cols-1">
+        <ul class="flex row-start-1 col-start-1 z-10">
+          {page_keys.map((o) => <li><a href={"/" + o.toString()} class="whitespace-nowrap p-3 text-sm font-medium text-purple-950 hover:text-orange-600 capitalize">{o}</a></li>)}
         </ul>
+        <div class="row-start-1 col-start-1 w-full h-50 bg-gradient-to-r from-purple-300 to-cyan-300 blur-2xl" />
       </div>
     </div>
 
