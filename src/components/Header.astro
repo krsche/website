@@ -2,22 +2,20 @@
 import { Popover } from "@headlessui/react";
 import { Image } from 'astro:assets';
 import kfLogo from '../assets/images/kf-logo.svg';
-
-enum Page {
-  projects,
-  blog,
-  about,
-  contact
-}
+import { Icon } from 'astro-icon'
 
 interface Props {
-  page?: Page
   className?: String
 }
-const { page, className="" } = Astro.props
-const page_keys = Object.values(Page).filter((o) => isNaN(Number(o)))
+const { className="" } = Astro.props
 
-console.log(page_keys)
+const pages = {
+  "home": "/",
+  "projects": "/projects",
+  "blog": "/blog"
+}
+
+const current_slug = Astro.url.pathname // TODO: Highlight which page the user is currently on by underlining it in the header.
 ---
 
 <script>
@@ -58,16 +56,24 @@ console.log(page_keys)
       </button>
   
       <div class="hidden xs:grid grid-cols-1">
-        <ul class="flex row-start-1 col-start-1 z-10">
-          {page_keys.map((o) => <li><a href={"/" + o.toString()} class="whitespace-nowrap px-3 text-sm font-medium  hover:text-orange-600 capitalize">{o}</a></li>)}
+        <ul class="flex row-start-1 col-start-1 z-10 h-5 text-sm font-medium capitalize">
+          {Object.entries(pages).map(([name, slug]) => <li class="px-3 hover:text-orange-600"><a href={slug}>{name}</a></li>)}
+          <li class="px-3 hover:text-orange-600"><a href="https://github.com/krsche"><Icon name="mdi:github" class="h-full"/></a></li>
+          <li class="px-3 hover:text-orange-600"><a href="mailto:fabian.kirschner@gmail.com"><Icon name="tabler:mail" class="h-full"/></a></li>
         </ul>
         <div class="row-start-1 col-start-1 w-full h-30 bg-gradient-to-r from-purple-300 to-cyan-300 blur-2xl" />
       </div>
     </div>
 
     <div id="menuOverlay" class="hidden xs:hidden flex h-full w-full flex-col -translate-y-12 transition-all duration-500 justify-around items-center">
-      <ul class="flex flex-col items-center">
-        {page_keys.map((o) => <li class="mb-5 "><a href={"/" + o.toString()} class="whitespace-nowrap text-2xl hover:text-orange-600 font-medium capitalize">{o}</a></li>)}
+      <ul class="flex flex-col items-center text-2xl font-medium capitalize">
+        {Object.entries(pages).map(([name, slug]) => <li class="mb-5 hover:text-orange-600"><a href={slug}>{name}</a></li>)}
+        <li>
+          <ul class="flex flex-row mt-6">
+            <li class="px-3 hover:text-orange-600"><a href="https://github.com/krsche"><Icon name="mdi:github" class="h-7"/></a></li>
+            <li class="px-3 hover:text-orange-600"><a href="mailto:fabian.kirschner@gmail.com"><Icon name="tabler:mail" class="h-7"/></a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

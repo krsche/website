@@ -6,6 +6,11 @@ interface Props {
 }
 const { className="" } = Astro.props
 
+const footer_links = {
+  "Imprint": "/imprint",
+  "Data Protection": "/dataprotection",
+}
+
 const quote = "Lorem impsum dolor sit amet. Lorem impsum dolor sit amet."
 ---
 
@@ -17,7 +22,7 @@ const quote = "Lorem impsum dolor sit amet. Lorem impsum dolor sit amet."
 
       <!-- Links -->
       <ul class="flex flex-col xs:flex-row ml-6 gap-x-5">
-        {["Imprint", "Data Protection"].map((o) => <li><a href={"/" + o.toString()} class="whitespace-nowrap text-slate-500 hover:text-purple-950 capitalize">{o}</a></li>)}
+        {Object.entries(footer_links).map(([name, slug]) => <li class="whitespace-nowrap text-slate-500 hover:text-orange-600 capitalize"><a href={slug}>{name}</a></li>)}
       </ul>
     </div>
   </div>
