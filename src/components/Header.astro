@@ -24,8 +24,8 @@ console.log(page_keys)
   const btnToggleMenuPopover = document.getElementById('btnToggleMenuPopover')
 
   btnToggleMenuPopover?.addEventListener("click", () => {
-    (["rotate-45", "translate-y-0.5", "mb-2"]).map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar1")?.classList.toggle(e));
-    (["hidden"]).map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar2")?.classList.toggle(e));
+    (["rotate-45", "translate-y-0.5", "mb-2.5"]).map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar1")?.classList.toggle(e));
+    // (["hidden"]).map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar2")?.classList.toggle(e));
     (["-rotate-45"]).map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar3")?.classList.toggle(e));
     
     document.getElementById("headerContainer")?.classList.toggle("h-screen")
@@ -33,36 +33,41 @@ console.log(page_keys)
   })
 </script>
 
-<Popover id="headerMain" className={`${className} bg-white`}>
-  <div id="headerContainer" class="max-w-7xl mx-auto px-4 sm:px-6 h-full xs:h-full transition-all bg-white border-b-2 border-gray-100">
+<Popover id="headerMain" className={`${className} bg-white text-purple-950`}>
+  <div id="headerContainer" class="max-w-7xl mx-auto px-4 sm:px-6 h-full xs:h-full transition-all bg-white border-b-2 border-gray-100 ">
     <!-- the class xs:h-full is set here explicitely again, so that if the height is expanded, it gets restored to normal if width increases. -->
     <div class="flex items-center justify-between h-20 sm:h-24">
       <!-- Logo (left) -->
       <div class="flex justify-start">
-        <a href="/">
-          <Image src={kfLogo} alt="KF Logo"} class="mx-6 mt-1 m-0 h-9 w-12"/>
+        <a href="/" class="grid grid-cols-1">
+          <Image src={kfLogo} alt="KF Logo"} class="mx-6 mt-1 m-0 h-9 w-12 row-start-1 col-start-1 z-10"/>
+          <div class="mx-6 mt-1 m-0 h-9 w-12 row-start-1 col-start-1 bg-gradient-to-r from-purple-300 to-cyan-300 blur-xl"/>
         </a>
       </div>
   
       <!-- Links -->
-      <button id="btnToggleMenuPopover" class="xs:hidden z-30 cursor-pointer w-8 mx-6 mt-1.5 transition-all">
-        <div id="iconOpenMenu transition-all">
-          <span id="menuIconBar1" class="transition-all block w-full h-0.5 bg-gray-700 mb-2"></span>
-          <span id="menuIconBar2" class="transition-all block w-full h-0.5 bg-gray-700 mb-2"></span>
-          <span id="menuIconBar3" class="transition-all block w-full h-0.5 bg-gray-700"></span>
+      <button id="btnToggleMenuPopover" class="xs:hidden z-30 cursor-pointer w-8 mx-6 mt-1.5">
+        <div class="grid grid-cols-1">
+          <div class="row-start-1 col-start-1 transition-all z-20">
+            <span id="menuIconBar1" class="transition-all block w-full h-0.5 bg-purple-950 mb-2.5"></span>
+            <!-- <span id="menuIconBar2" class="transition-all block w-full h-0.5 bg-purple-950 mb-2"></span> -->
+            <span id="menuIconBar3" class="transition-all block w-full h-0.5 bg-purple-950"></span>
+          </div>
+          <div class="row-start-1 col-start-1 w-full min-h-4 bg-gradient-to-r from-purple-300 to-cyan-300 blur-md z-10" />
         </div>
       </button>
   
-      <div class="hidden xs:block flexitems-center justify-end">
-        <ul class="flex">
-          {page_keys.map((o) => <li><a href={"/" + o.toString()} class="whitespace-nowrap p-3 text-sm font-medium text-gray-700 hover:text-black capitalize">{o}</a></li>)}
+      <div class="hidden xs:grid grid-cols-1">
+        <ul class="flex row-start-1 col-start-1 z-10">
+          {page_keys.map((o) => <li><a href={"/" + o.toString()} class="whitespace-nowrap px-3 text-sm font-medium  hover:text-orange-600 capitalize">{o}</a></li>)}
         </ul>
+        <div class="row-start-1 col-start-1 w-full h-30 bg-gradient-to-r from-purple-300 to-cyan-300 blur-2xl" />
       </div>
     </div>
 
     <div id="menuOverlay" class="hidden xs:hidden flex h-full w-full flex-col -translate-y-12 transition-all duration-500 justify-around items-center">
       <ul class="flex flex-col items-center">
-        {page_keys.map((o) => <li class="mb-5 "><a href={"/" + o.toString()} class="whitespace-nowrap text-2xl font-medium text-black capitalize">{o}</a></li>)}
+        {page_keys.map((o) => <li class="mb-5 "><a href={"/" + o.toString()} class="whitespace-nowrap text-2xl hover:text-orange-600 font-medium capitalize">{o}</a></li>)}
       </ul>
     </div>
   </div>
