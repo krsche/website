@@ -2,6 +2,12 @@
 
 Built using astro and hosted on vercel.
 
+## TODO
+
+- Setup pre-commit to run exiftool on all images before commit
+- Add requirements to Readme
+- tailwindcss class order plugin
+
 ## NPM Commands
 
 All commands are run from the root of the project, from a terminal:

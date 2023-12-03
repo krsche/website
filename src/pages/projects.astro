@@ -1,18 +1,26 @@
 ---
 import Default from "../layouts/Default.astro";
-import ProjectsCard from "../components/ProjectsCard.astro"
-
+import placeholder from "../assets/images/placeholder.svg"
+import { Image } from "astro:assets"
 import { getCollection } from "astro:content";
 
 const entries = await getCollection("projects")
 ---
 
 <Default>
-  <div class="mt-8 sm:mt-12 max-w-6xl mx-auto xxs:px-1 xs:px-2 lg:px-3 text-purple-950">
-    <h1 class="text-center text-2xl sm:text-3xl lg:text-4xl font-extrabold">Projects</h1>
-    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5 xxs:gap-6 lg:gap-8">
+  <div class="my-6 lg:my-10 max-w-7xl mx-auto xxs:px-1 xs:px-2 lg:px-3 text-purple-950">
+    <h1 class="text-center text-4xl xs:text-5xl">Projects</h1>
+    <div class="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 xl:gap-y-12">
       {entries.map(entry => (
-        <ProjectsCard title={entry.data.title} summary={entry.data.summary} href={`/projects/${entry.slug}`} className={""}></ProjectsCard>
+        <a href={`/projects/${entry.slug}`}>
+          <div class="flex flex-col w-full text-purple-950">
+            <Image src={placeholder} alt="placeholder" class="w-full h-64 object-cover"/>
+            <div class="pt-6 mr-2">
+              <h2 class="text-3xl">{entry.data.title}</h2>
+              <p class="mt-1.5 text-sm ">{entry.data.summary}</p>
+            </div>
+          </div>
+        </a>
       ))}
     </div>
   </div>
