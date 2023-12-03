@@ -13,8 +13,9 @@ if (entry === undefined) {
 }
 const { Content } = await entry.render();
 
-// const image = import.meta.glob(imagePath)[imagePath]()
-const image = import(`/src/content/blog/images/${entry.data.image}`)
+const images = import.meta.glob("../../content/blog/images/*.{jpeg,jpg,png,gif,svg}")
+console.log(images)
+const image = images[`../../content/blog/images/${entry.data.image}`]()
 ---
 <Markdown>
   <h1>{entry.data.title}</h1>
