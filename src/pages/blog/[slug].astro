@@ -1,0 +1,27 @@
+---
+import { getEntry } from "astro:content";
+import Markdown from "../../layouts/Markdown.astro";
+import { Image } from "astro:assets"
+
+const { slug } = Astro.params;
+if (slug === undefined) {
+  throw new Error("Slug is required");
+}
+const entry = await getEntry("blog", slug);
+if (entry === undefined) {
+  return Astro.redirect("/404");
+}
+const { Content } = await entry.render();
+
+// const image = import.meta.glob(imagePath)[imagePath]()
+const image = import(`/src/content/blog/images/${entry.data.image}`)
+---
+<Markdown>
+  <h1>{entry.data.title}</h1>
+  <div class="flex justify-start align-middle -mt-6 gap-x-4 text-sm text-slate-400">
+    <span>{entry.data.date}</span>
+    <span>{entry.data.timetoreadmins} min read</span>
+  </div>
+  <Image src={image} alt="title image" class=""/>
+  <Content />
+</Markdown>
