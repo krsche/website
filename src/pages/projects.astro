@@ -1,0 +1,19 @@
+---
+import Default from "../layouts/Default.astro";
+import ProjectsCard from "../components/ProjectsCard.astro"
+
+import { getCollection } from "astro:content";
+
+const entries = await getCollection("projects")
+---
+
+<Default>
+  <div class="mt-8 sm:mt-12 max-w-6xl mx-auto xxs:px-1 xs:px-2 lg:px-3 text-purple-950">
+    <h1 class="text-center text-2xl sm:text-3xl lg:text-4xl font-extrabold">Projects</h1>
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5 xxs:gap-6 lg:gap-8">
+      {entries.map(entry => (
+        <ProjectsCard title={entry.data.title} summary={entry.data.summary} href={`/projects/${entry.slug}`} className={""}></ProjectsCard>
+      ))}
+    </div>
+  </div>
+</Default>

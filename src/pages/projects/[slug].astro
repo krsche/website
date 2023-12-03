@@ -1,0 +1,18 @@
+---
+import { getEntry } from "astro:content";
+import Markdown from "../../layouts/Markdown.astro";
+
+const { slug } = Astro.params;
+if (slug === undefined) {
+  throw new Error("Slug is required");
+}
+const entry = await getEntry("projects", slug);
+
+if (entry === undefined) {
+  return Astro.redirect("/404");
+}
+const { Content } = await entry.render();
+---
+<Markdown>
+  <Content />
+</Markdown>

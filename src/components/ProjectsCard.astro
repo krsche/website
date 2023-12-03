@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import placeholder from "../assets/images/placeholder.svg"
+interface Props {
+  className?: String,
+  title: String,
+  summary: String,
+  href: String
+}
+const { className="", title, summary, href } = Astro.props
+---
+<div class="relative group">
+  <div class="bg-white rounded-lg">
+    <a href=`${href}`>
+      <!-- image besides text -->
+      <div class={`${className} hidden xxs:flex sm:hidden lg:flex h-28 lg:h-32 w-full rounded-lg text-purple-950`}>
+        <Image src={placeholder} alt="placeholder" class="basis-1/4 rounded-l-lg h-full object-cover"}/>
+        <div class="basis-3/4 -translate-y-2 pl-3.5 mr-2 my-auto">
+          <h2 class="text-lg lg:text-xl font-semibold">{title}</h2>
+          <p class="mt-1.5 text-sm leading-tight lg:leading-normal">{summary}</p>
+        </div>
+      </div>
+    
+      <!-- image above text -->
+      <div class={`${className} flex xxs:hidden sm:flex lg:hidden flex-col w-full rounded-lg text-purple-950`}>
+        <Image src={placeholder} alt="placeholder" class="rounded-t-lg w-full h-40 object-cover"}/>
+        <div class="py-6 pl-3.5 mr-2">
+          <h2 class="text-lg font-semibold">{title}</h2>
+          <p class="mt-1.5 text-sm leading-tight">{summary}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="absolute bg-gradient-to-r from-pink-600 to-purple-600 -z-10 inset-0.5 blur opacity-50 group-hover:opacity-75 group-hover:inset-0 transition duration-1000 group-hover:duration-200" />
+</div>
