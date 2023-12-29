@@ -1,6 +1,6 @@
 ---
 import { Popover } from "@headlessui/react";
-import { Image } from 'astro:assets';
+import Image from "../components/MyImage.astro"
 import kfLogo from '../assets/images/kf-logo.svg';
 import { Icon } from 'astro-icon'
 
@@ -37,7 +37,7 @@ const current_slug = Astro.url.pathname // TODO: Highlight which page the user i
       <!-- Logo (left) -->
       <div class="flex justify-start">
         <a href="/" class="grid grid-cols-1">
-          <Image src={kfLogo} alt="KF Logo" class="mx-6 mt-1 m-0 h-9 w-12 row-start-1 col-start-1 z-10"/>
+          <Image src={kfLogo} alt="KF Logo" className="mx-6 mt-1 m-0 h-9 w-12 row-start-1 col-start-1 z-10"/>
         </a>
       </div>
   

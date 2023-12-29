@@ -1,6 +1,6 @@
 ---
 import Default from "../layouts/Default.astro";
-import { Image } from 'astro:assets';
+import Image from "../components/MyImage.astro"
 // import portrait from '../assets/images/portrait.jpg'
 import portrait from '../assets/images/placeholder.svg'
 ---
@@ -8,7 +8,7 @@ import portrait from '../assets/images/placeholder.svg'
 <Default>
   <div class="h-full flex flex-col justify-center items-center text-purple-950">
     <!-- <div>
-      <Image src={portrait} alt="Portrait" class="w-32 h-28 md:w-40 md:h-32 xl:w-48 xl:h-36 hover:mb-10 mt-2 hover:mt-4 rounded-3xl object-cover hover:rotate-[26deg] transition-all"/>
+      <Image src={portrait} alt="Portrait" className="w-32 h-28 md:w-40 md:h-32 xl:w-48 xl:h-36 hover:mb-10 mt-2 hover:mt-4 rounded-3xl object-cover hover:rotate-[26deg] transition-all"/>
     </div> -->
     
     <div class="grid xl:mt-8">

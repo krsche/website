@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import Markdown from "../../layouts/Markdown.astro";
-import { Image } from "astro:assets"
+import Image from "../../components/MyImage.astro"
 
 const { slug } = Astro.params;
 if (slug === undefined) {
@@ -23,6 +23,6 @@ const image = images[`../../content/blog/images/${entry.data.image}`]()
     <span>{entry.data.date}</span>
     <span>{entry.data.timetoreadmins} min read</span>
   </div>
-  <Image src={image} alt="title image" class=""/>
+  <Image src={image} alt="title image" className=""/>
   <Content />
 </Markdown>
