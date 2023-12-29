@@ -15,7 +15,13 @@ console.log(images)
       <a href={`/blog/${entry.slug}`}>
         <div class="grid lg:grid-cols-2 items-center my-12">
           <div class="">
-            <Image src={images[`/src/content/blog/images/${entry.data.image}`]()} alt="placeholder" class="object-cover w-full h-80"/>
+            <Image src={images[`/src/content/blog/images/${entry.data.image}`]()} 
+                   class="object-cover w-full h-80"
+                   alt="placeholder"
+                   width="400"
+                   height="400"
+                   loading="lazy"
+                   decoding="async"/>
           </div>
           <div class="lg:row-start-1 pt-5">
             <h2 class="text-4xl xs:text-5xl">{entry.data.title}</h2>

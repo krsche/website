@@ -1,0 +1,18 @@
+---
+import { number } from 'astro/zod';
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string;
+  defaultClasses?: string;
+  className?: string;
+  alt?: string;
+  width?: string;
+  height?: string;
+  [key: string]: any;
+}
+
+// Set bg-slate-100 as defaultClass so that the component has a background before the real image is loaded (pretty loading-state)
+const {src, defaultClasses="bg-slate-100", className="", alt="", width="200", height="200", ...attrs} = Astro.props;
+---
+<Image src={src} alt={alt} height={Number(height)} width={Number(width)} {...attrs} class={`${defaultClasses} ${className}`}/>
