@@ -14,7 +14,6 @@ if (entry === undefined) {
 const { Content } = await entry.render();
 
 const images = import.meta.glob("../../content/blog/images/*.{jpeg,jpg,png,gif,svg}")
-console.log(images)
 const image = images[`../../content/blog/images/${entry.data.image}`]()
 ---
 <Markdown>
@@ -23,6 +22,10 @@ const image = images[`../../content/blog/images/${entry.data.image}`]()
     <span>{entry.data.date}</span>
     <span>{entry.data.timetoreadmins} min read</span>
   </div>
-  <Image src={image} alt="title image" className="w-full"/>
+  <Image src={image} 
+         alt="title image" 
+         className="w-full"
+         width="1920"
+         height="1080"/>
   <Content />
 </Markdown>

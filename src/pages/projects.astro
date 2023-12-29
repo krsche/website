@@ -1,10 +1,11 @@
 ---
 import Default from "../layouts/Default.astro";
 import placeholder from "../assets/images/placeholder.svg"
-import { Image } from "astro:assets"
+import Image from "../components/MyImage.astro"
 import { getCollection } from "astro:content";
 
 const entries = await getCollection("projects")
+const images = import.meta.glob('/src/content/projects/images/**/*.{jpeg,jpg,png,gif,svg}')
 ---
 
 <Default>
@@ -14,8 +15,18 @@ const entries = await getCollection("projects")
       {entries.map(entry => (
         <a href={`/projects/${entry.slug}`}>
           <div class="flex flex-col w-full text-purple-950">
-            <Image src={placeholder} alt="placeholder" class="w-full h-64 object-cover"/>
-            <div class="pt-6 mr-2">
+            <div class="w-full h-64 flex flex-row">
+              {entry.data.titleImages.map(image => (
+                <Image src={images[`/src/content/projects/images/${image}`]()} 
+                       className="h-full w-1 grow object-cover"
+                       width="400"
+                       height="600"
+                       alt="placeholder"
+                       loading="lazy"
+                       decoding="async"/>
+              ))}
+            </div>
+            <div class="pt-3 mr-2">
               <h2 class="text-3xl">{entry.data.title}</h2>
               <p class="mt-1.5 text-sm ">{entry.data.summary}</p>
             </div>

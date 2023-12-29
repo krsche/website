@@ -1,12 +1,14 @@
 ---
-title: Example Project
+title: Example Project 4
 summary: This is a great project. Look at how great it is. It's absolutely wonderful. So so great!
-slug: example-project
+slug: example-project-4
+titleImages: 
+  - placeholder.svg
 tags: 
   - example
   - project
 ---
-# Example Project
+# Example Project 4
 
 The standard Lorem Ipsum passage, used since the 1500s
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."

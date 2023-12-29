@@ -4,9 +4,9 @@ Built using astro and hosted on vercel.
 
 ## TODO
 
-- Setup pre-commit to run exiftool on all images before commit
 - Add requirements to Readme
 - tailwindcss class order plugin
+- a nice green instead of purple
 
 ## NPM Commands
 
