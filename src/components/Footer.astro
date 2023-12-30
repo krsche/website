@@ -2,27 +2,33 @@
 import { Popover } from "@headlessui/react";
 
 interface Props {
-  className?: String
+  className?: String;
 }
-const { className="" } = Astro.props
+const { className = "" } = Astro.props;
 
 const footer_links = {
-  "Imprint": "/imprint",
+  Imprint: "/imprint",
   "Data Protection": "/dataprotection",
-}
+};
 
-const quote = "Lorem impsum dolor sit amet. Lorem impsum dolor sit amet."
+const quote = "Lorem impsum dolor sit amet. Lorem impsum dolor sit amet.";
 ---
 
 <Popover className={`${className} text-purple-950`}>
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
-    <div class="flex items-center justify-between border-t-2 border-gray-100 py-6 text-xs" >
+    <div class="flex items-center justify-between border-t-2 border-gray-100 py-6 text-xs">
       <!-- Quote (left) -->
       <span class="self-start">{quote}</span>
 
       <!-- Links -->
-      <ul class="flex flex-col xs:flex-row ml-6 gap-x-5">
-        {Object.entries(footer_links).map(([name, slug]) => <li class="whitespace-nowrap text-slate-500 hover:text-orange-600 capitalize"><a href={slug}>{name}</a></li>)}
+      <ul class="ml-6 flex flex-col gap-x-5 xs:flex-row">
+        {
+          Object.entries(footer_links).map(([name, slug]) => (
+            <li class="whitespace-nowrap capitalize text-slate-500 hover:text-orange-600">
+              <a href={slug}>{name}</a>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>

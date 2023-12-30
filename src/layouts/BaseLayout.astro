@@ -5,11 +5,11 @@ interface Props {
   title?: string;
 }
 
-const slugNoSlash = Astro.url.pathname.substring(1)
-const pageName = slugNoSlash == "" ? "Home" : slugNoSlash.charAt(0).toUpperCase() + slugNoSlash.substring(1)
-const defaultTitle = "KF | " + pageName
+const slugNoSlash = Astro.url.pathname.substring(1);
+const pageName = slugNoSlash == "" ? "Home" : slugNoSlash.charAt(0).toUpperCase() + slugNoSlash.substring(1);
+const defaultTitle = "KF | " + pageName;
 
-const { title=defaultTitle } = Astro.props;
+const { title = defaultTitle } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,10 +23,10 @@ const { title=defaultTitle } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="">
-    <div class="min-h-screen flex flex-col" >
-      <Header className="sticky top-0 z-10 h-20 sm:h-24 w-full"/>
+    <div class="flex min-h-screen flex-col">
+      <Header className="sticky top-0 z-10 h-20 w-full sm:h-24" />
       <main class="grow">
-        <slot/>
+        <slot />
       </main>
       <Footer className="" />
     </div>

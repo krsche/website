@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import Markdown from "../../layouts/Markdown.astro";
-import Image from "../../components/MyImage.astro"
+import Image from "../../components/MyImage.astro";
 
 const { slug } = Astro.params;
 if (slug === undefined) {
@@ -13,19 +13,16 @@ if (entry === undefined) {
 }
 const { Content } = await entry.render();
 
-const images = import.meta.glob("../../content/blog/images/*.{jpeg,jpg,png,gif,svg}")
-const image = images[`../../content/blog/images/${entry.data.image}`]()
+const images = import.meta.glob("../../content/blog/images/*.{jpeg,jpg,png,gif,svg}");
+const image = images[`../../content/blog/images/${entry.data.image}`]();
 ---
+
 <Markdown>
   <h1>{entry.data.title}</h1>
-  <div class="flex justify-start align-middle -mt-6 gap-x-4 text-sm text-slate-400">
+  <div class="-mt-6 flex justify-start gap-x-4 align-middle text-sm text-slate-400">
     <span>{entry.data.date}</span>
     <span>{entry.data.timetoreadmins} min read</span>
   </div>
-  <Image src={image} 
-         alt="title image" 
-         className="w-full"
-         width="1920"
-         height="1080"/>
+  <Image src={image} alt="title image" className="w-full" width="1920" height="1080" />
   <Content />
 </Markdown>

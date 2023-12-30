@@ -1,33 +1,50 @@
 ---
 import Default from "../layouts/Default.astro";
-import Image from "../components/MyImage.astro"
+import Image from "../components/MyImage.astro";
 // import portrait from '../assets/images/portrait.jpg'
-import portrait from '../assets/images/placeholder.svg'
+import portrait from "../assets/images/placeholder.svg";
 ---
 
 <Default>
-  <div class="min-h-[calc(100vh-7rem)] sm:min-h-[calc(100vh-8rem)] flex flex-col justify-center items-center text-purple-950">
+  <div class="flex min-h-[calc(100vh-7rem)] flex-col items-center justify-center text-purple-950 sm:min-h-[calc(100vh-8rem)]">
     <!-- <div>
       <Image src={portrait} alt="Portrait" className="w-32 h-28 md:w-40 md:h-32 xl:w-48 xl:h-36 hover:mb-10 mt-2 hover:mt-4 rounded-3xl object-cover hover:rotate-[26deg] transition-all"/>
     </div> -->
-    
+
     <div class="grid xl:mt-8">
-      <h1 class="row-start-1 col-start-1 text-center text-5xl xl:text-6xl font-extrabold">Fabian Kirschner</h1>
-      <div class="row-start-1 col-start-1 -z-10 opacity-50 xs:opacity-100 text-center text-3xl xxs:text-4xl md:text-5xl xl:text-6xl font-extrabold bg-gradient-to-r from-purple-300 to-cyan-300 text-white blur-2xl">Fabian Kirschner</div>
-      <h2 class="row-start-2 col-start-1 text-lg xl:text-xl mt-1 mx-5 text-center">Super fancy subtitle that is eight words long</h2>
-    </div>
-    
-    <div class="w-full h-10 mt-6 xxs:mt-8 max-w-[358px] flex flex-wrap xs:flex-nowrap gap-x-4 gap-y-1 justify-between text-sm font-medium text-center">
-      <div class="relative w-full h-full mb-2 group">
-        <a href="/projects"><div class="w-full h-full rounded-lg bg-gradient-to-r mx-auto from-purple-900 to-purple-600 shadow-md text-white flex flex-col justify-around">Projects</div></a>
-        <div class="absolute inset-0.5 rounded-lg -z-10 bg-gradient-to-r from-pink-600 to-purple-600 blur-md opacity-50 group-hover:opacity-75 group-hover:inset-0 transition duration-1000 group-hover:duration-200"/>
+      <h1 class="col-start-1 row-start-1 text-center text-5xl font-extrabold xl:text-6xl">Fabian Kirschner</h1>
+      <div
+        class="-z-10 col-start-1 row-start-1 bg-gradient-to-r from-purple-300 to-cyan-300 text-center text-3xl font-extrabold text-white opacity-50 blur-2xl xxs:text-4xl xs:opacity-100 md:text-5xl xl:text-6xl"
+      >
+        Fabian Kirschner
       </div>
-      <div class="relative w-full mb-2 items-center justify-center h-full group">
-        <a class="row-start-1 col-start-1 " href="/blog"><div class="w-full h-full mx-auto rounded-lg hover:text-pruple-950 text-purple-950 bg-white flex flex-col justify-around">Blog</div></a>
-        <div class="absolute inset-0.5 rounded-lg -z-10 bg-gradient-to-r from-pink-600 to-purple-600 blur-md opacity-50 group-hover:opacity-75 group-hover:inset-0 transition duration-1000 group-hover:duration-200"/>
+      <h2 class="col-start-1 row-start-2 mx-5 mt-1 text-center text-lg xl:text-xl">Super fancy subtitle that is eight words long</h2>
+    </div>
+
+    <div class="mt-6 flex h-10 w-full max-w-[358px] flex-wrap justify-between gap-x-4 gap-y-1 text-center text-sm font-medium xxs:mt-8 xs:flex-nowrap">
+      <div class="group relative mb-2 h-full w-full">
+        <a href="/projects"
+          ><div class="mx-auto flex h-full w-full flex-col justify-around rounded-lg bg-gradient-to-r from-purple-900 to-purple-600 text-white shadow-md">
+            Projects
+          </div></a
+        >
+        <div
+          class="absolute inset-0.5 -z-10 rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 opacity-50 blur-md transition duration-1000 group-hover:inset-0 group-hover:opacity-75 group-hover:duration-200"
+        >
+        </div>
+      </div>
+      <div class="group relative mb-2 h-full w-full items-center justify-center">
+        <a class="col-start-1 row-start-1" href="/blog"
+          ><div class="hover:text-pruple-950 mx-auto flex h-full w-full flex-col justify-around rounded-lg bg-white text-purple-950">Blog</div></a
+        >
+        <div
+          class="absolute inset-0.5 -z-10 rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 opacity-50 blur-md transition duration-1000 group-hover:inset-0 group-hover:opacity-75 group-hover:duration-200"
+        >
+        </div>
       </div>
     </div>
-    <div class="h-0 xs:h-[10px] lg:h-[4rem]"></div> <!-- This div pushes the other content up on certain screen sizes making things look better -->
+    <div class="h-0 xs:h-[10px] lg:h-[4rem]"></div>
+    <!-- This div pushes the other content up on certain screen sizes making things look better -->
     <!-- TODO: Fix layout on screens with low height (320px landscape?) -->
   </div>
 </Default>

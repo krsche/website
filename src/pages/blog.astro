@@ -1,35 +1,39 @@
 ---
 import Default from "../layouts/Default.astro";
 import { getCollection } from "astro:content";
-import Image from "../components/MyImage.astro"
+import Image from "../components/MyImage.astro";
 
-const entries = await getCollection("blog")
-const images = import.meta.glob('/src/content/blog/images/*.{jpeg,jpg,png,gif,svg}')
+const entries = await getCollection("blog");
+const images = import.meta.glob("/src/content/blog/images/*.{jpeg,jpg,png,gif,svg}");
 ---
 
 <Default>
-  <div class="mt-8 sm:mt-12 max-w-7xl mx-auto xxs:px-1 sm:px-3 text-purple-950">
-    {entries.map(entry => (
-      <a href={`/blog/${entry.slug}`}>
-        <div class="grid lg:grid-cols-2 items-center my-12">
-          <div class="">
-            <Image src={images[`/src/content/blog/images/${entry.data.image}`]()} 
-                   className="object-cover w-full h-80"
-                   alt="placeholder"
-                   width="1920"
-                   height="1080"
-                   loading="lazy"
-                   decoding="async"/>
-          </div>
-          <div class="lg:row-start-1 pt-5">
-            <h2 class="text-4xl xs:text-5xl">{entry.data.title}</h2>
-            <div class="flex justify-start align-middle mt-4 gap-4 text-sm text-slate-400">
-              <span>{entry.data.date}</span>
-              <span>{entry.data.timetoreadmins} min read</span>
+  <div class="mx-auto mt-8 max-w-7xl text-purple-950 xxs:px-1 sm:mt-12 sm:px-3">
+    {
+      entries.map((entry) => (
+        <a href={`/blog/${entry.slug}`}>
+          <div class="my-12 grid items-center lg:grid-cols-2">
+            <div class="">
+              <Image
+                src={images[`/src/content/blog/images/${entry.data.image}`]()}
+                className="object-cover w-full h-80"
+                alt="placeholder"
+                width="1920"
+                height="1080"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="pt-5 lg:row-start-1">
+              <h2 class="text-4xl xs:text-5xl">{entry.data.title}</h2>
+              <div class="mt-4 flex justify-start gap-4 align-middle text-sm text-slate-400">
+                <span>{entry.data.date}</span>
+                <span>{entry.data.timetoreadmins} min read</span>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    ))}
+        </a>
+      ))
+    }
   </div>
 </Default>

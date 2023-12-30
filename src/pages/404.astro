@@ -3,12 +3,15 @@ import Default from "../layouts/Default.astro";
 ---
 
 <Default title="KF | Error 404!">
-  <div class="h-full flex flex-col justify-center items-center">
-    <div class="my-6 xl:my-8 flex flex-col justify-center items-center">
-      <h1 class="text-2xl md:text-3xl xl:text-4xl font-extrabold">Error 404!</h1>
-      <h2 class="text-basis md:text-lg xl:text-xl mt-1 mx-5 text-center">I think you're lost, let me help you get <a class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href="/">back</a> :)</h2>
+  <div class="flex h-full flex-col items-center justify-center">
+    <div class="my-6 flex flex-col items-center justify-center xl:my-8">
+      <h1 class="text-2xl font-extrabold md:text-3xl xl:text-4xl">Error 404!</h1>
+      <h2 class="text-basis mx-5 mt-1 text-center md:text-lg xl:text-xl">
+        I think you're lost, let me help you get <a class="text-blue-600 underline visited:text-purple-600 hover:text-blue-800" href="/">back</a> :)
+      </h2>
     </div>
-    <div class="h-0 xs:h-[10px] lg:h-[4rem]"></div> <!-- This div pushes the other content up on certain screen sizes making things look better -->
+    <div class="h-0 xs:h-[10px] lg:h-[4rem]"></div>
+    <!-- This div pushes the other content up on certain screen sizes making things look better -->
     <!-- TODO: Fix layout on screens with low height (320px landscape?) -->
   </div>
 </Default>

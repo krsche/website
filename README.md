@@ -5,7 +5,6 @@ Built using astro and hosted on vercel.
 ## TODO
 
 - Add requirements to Readme
-- tailwindcss class order plugin
 - a nice green instead of purple
 
 ## NPM Commands

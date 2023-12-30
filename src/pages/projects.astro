@@ -1,38 +1,42 @@
 ---
 import Default from "../layouts/Default.astro";
-import placeholder from "../assets/images/placeholder.svg"
-import Image from "../components/MyImage.astro"
+import placeholder from "../assets/images/placeholder.svg";
+import Image from "../components/MyImage.astro";
 import { getCollection } from "astro:content";
 
-const entries = await getCollection("projects")
-const images = import.meta.glob('/src/content/projects/images/**/*.{jpeg,jpg,png,gif,svg}')
+const entries = await getCollection("projects");
+const images = import.meta.glob("/src/content/projects/images/**/*.{jpeg,jpg,png,gif,svg}");
 ---
 
 <Default>
-  <div class="my-6 lg:my-10 max-w-7xl mx-auto xxs:px-1 xs:px-2 lg:px-3 text-purple-950">
+  <div class="mx-auto my-6 max-w-7xl text-purple-950 xxs:px-1 xs:px-2 lg:my-10 lg:px-3">
     <h1 class="text-center text-4xl xs:text-5xl">Projects</h1>
-    <div class="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 xl:gap-y-12">
-      {entries.map(entry => (
-        <a href={`/projects/${entry.slug}`}>
-          <div class="flex flex-col w-full text-purple-950">
-            <div class="w-full h-64 flex flex-row">
-              {entry.data.titleImages.map(image => (
-                <Image src={images[`/src/content/projects/images/${image}`]()} 
-                       className="h-full w-1 grow object-cover"
-                       width="400"
-                       height="600"
-                       alt="placeholder"
-                       loading="lazy"
-                       decoding="async"/>
-              ))}
+    <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:mt-14 xl:gap-y-12">
+      {
+        entries.map((entry) => (
+          <a href={`/projects/${entry.slug}`}>
+            <div class="flex w-full flex-col text-purple-950">
+              <div class="flex h-64 w-full flex-row">
+                {entry.data.titleImages.map((image) => (
+                  <Image
+                    src={images[`/src/content/projects/images/${image}`]()}
+                    className="h-full w-1 grow object-cover"
+                    width="400"
+                    height="600"
+                    alt="placeholder"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ))}
+              </div>
+              <div class="mr-2 pt-3">
+                <h2 class="text-3xl">{entry.data.title}</h2>
+                <p class="mt-1.5 text-sm ">{entry.data.summary}</p>
+              </div>
             </div>
-            <div class="pt-3 mr-2">
-              <h2 class="text-3xl">{entry.data.title}</h2>
-              <p class="mt-1.5 text-sm ">{entry.data.summary}</p>
-            </div>
-          </div>
-        </a>
-      ))}
+          </a>
+        ))
+      }
     </div>
   </div>
 </Default>

@@ -1,70 +1,82 @@
 ---
 import { Popover } from "@headlessui/react";
-import Image from "../components/MyImage.astro"
-import kfLogo from '../assets/images/kf-logo.svg';
-import { Icon } from 'astro-icon'
+import Image from "../components/MyImage.astro";
+import kfLogo from "../assets/images/kf-logo.svg";
+import { Icon } from "astro-icon";
 
 interface Props {
-  className?: String
+  className?: String;
 }
-const { className="" } = Astro.props
+const { className = "" } = Astro.props;
 
 const pages = {
-  "home": "/",
-  "projects": "/projects",
-  "blog": "/blog"
-}
+  home: "/",
+  projects: "/projects",
+  blog: "/blog",
+};
 
-const current_slug = Astro.url.pathname // TODO: Highlight which page the user is currently on by underlining it in the header.
+const current_slug = Astro.url.pathname; // TODO: Highlight which page the user is currently on by underlining it in the header.
 ---
 
 <script>
-  const btnToggleMenuPopover = document.getElementById('btnToggleMenuPopover')
+  const btnToggleMenuPopover = document.getElementById("btnToggleMenuPopover");
 
   btnToggleMenuPopover?.addEventListener("click", () => {
-    (["rotate-45", "translate-y-0.5", "mb-2.5"]).map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar1")?.classList.toggle(e));
-    (["-rotate-45"]).map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar3")?.classList.toggle(e));
-    
-    document.getElementById("headerContainer")?.classList.toggle("h-screen")
-    document.getElementById("menuOverlay")?.classList.toggle("hidden")
-  })
+    ["rotate-45", "translate-y-0.5", "mb-2.5"].map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar1")?.classList.toggle(e));
+    ["-rotate-45"].map((e: string) => btnToggleMenuPopover.querySelector("#menuIconBar3")?.classList.toggle(e));
+
+    document.getElementById("headerContainer")?.classList.toggle("h-screen");
+    document.getElementById("menuOverlay")?.classList.toggle("hidden");
+  });
 </script>
 
 <Popover id="headerMain" className={`${className} bg-white text-purple-950`}>
-  <div id="headerContainer" class="max-w-7xl mx-auto px-4 sm:px-6 h-full xs:h-full transition-all bg-white border-b-2 border-gray-100 ">
+  <div id="headerContainer" class="mx-auto h-full max-w-7xl border-b-2 border-gray-100 bg-white px-4 transition-all xs:h-full sm:px-6">
     <!-- the class xs:h-full is set here explicitely again, so that if the height is expanded, it gets restored to normal if width increases. -->
-    <div class="flex items-center justify-between h-20 sm:h-24">
+    <div class="flex h-20 items-center justify-between sm:h-24">
       <!-- Logo (left) -->
       <div class="flex justify-start">
         <a href="/" class="grid grid-cols-1">
-          <Image src={kfLogo} alt="KF Logo" className="mx-6 mt-1 m-0 h-9 w-12 row-start-1 col-start-1 z-10" defaultClasses=""/>
+          <Image src={kfLogo} alt="KF Logo" className="z-10 col-start-1 row-start-1 m-0 mx-6 mt-1 h-9 w-12" defaultClasses="" />
         </a>
       </div>
-  
+
       <!-- Links -->
-      <button id="btnToggleMenuPopover" class="xs:hidden z-30 cursor-pointer w-8 mx-6 mt-1.5">
-        <div class="transition-all z-20">
-          <span id="menuIconBar1" class="transition-all block w-full h-0.5 bg-purple-950 mb-2.5"></span>
-          <span id="menuIconBar3" class="transition-all block w-full h-0.5 bg-purple-950"></span>
+      <button id="btnToggleMenuPopover" class="z-30 mx-6 mt-1.5 w-8 cursor-pointer xs:hidden">
+        <div class="z-20 transition-all">
+          <span id="menuIconBar1" class="mb-2.5 block h-0.5 w-full bg-purple-950 transition-all"></span>
+          <span id="menuIconBar3" class="block h-0.5 w-full bg-purple-950 transition-all"></span>
         </div>
       </button>
-  
-      <div class="hidden xs:grid grid-cols-1">
-        <ul class="flex row-start-1 col-start-1 z-10 h-5 text-sm font-medium capitalize">
-          {Object.entries(pages).map(([name, slug]) => <li class="px-3 hover:text-orange-600"><a href={slug}>{name}</a></li>)}
-          <li class="px-3 hover:text-orange-600"><a href="https://github.com/krsche"><Icon name="mdi:github" class="h-full"/></a></li>
-          <li class="px-3 hover:text-orange-600"><a href="mailto:fabian.kirschner@gmail.com"><Icon name="tabler:mail" class="h-full"/></a></li>
+
+      <div class="hidden grid-cols-1 xs:grid">
+        <ul class="z-10 col-start-1 row-start-1 flex h-5 text-sm font-medium capitalize">
+          {
+            Object.entries(pages).map(([name, slug]) => (
+              <li class="px-3 hover:text-orange-600">
+                <a href={slug}>{name}</a>
+              </li>
+            ))
+          }
+          <li class="px-3 hover:text-orange-600"><a href="https://github.com/krsche"><Icon name="mdi:github" class="h-full" /></a></li>
+          <li class="px-3 hover:text-orange-600"><a href="mailto:fabian.kirschner@gmail.com"><Icon name="tabler:mail" class="h-full" /></a></li>
         </ul>
       </div>
     </div>
 
-    <div id="menuOverlay" class="hidden xs:hidden flex h-full w-full flex-col -translate-y-12 transition-all duration-500 justify-around items-center">
+    <div id="menuOverlay" class="flex hidden h-full w-full -translate-y-12 flex-col items-center justify-around transition-all duration-500 xs:hidden">
       <ul class="flex flex-col items-center text-2xl font-medium capitalize">
-        {Object.entries(pages).map(([name, slug]) => <li class="mb-5 hover:text-orange-600"><a href={slug}>{name}</a></li>)}
+        {
+          Object.entries(pages).map(([name, slug]) => (
+            <li class="mb-5 hover:text-orange-600">
+              <a href={slug}>{name}</a>
+            </li>
+          ))
+        }
         <li>
-          <ul class="flex flex-row mt-6">
-            <li class="px-3 hover:text-orange-600"><a href="https://github.com/krsche"><Icon name="mdi:github" class="h-7"/></a></li>
-            <li class="px-3 hover:text-orange-600"><a href="mailto:fabian.kirschner@gmail.com"><Icon name="tabler:mail" class="h-7"/></a></li>
+          <ul class="mt-6 flex flex-row">
+            <li class="px-3 hover:text-orange-600"><a href="https://github.com/krsche"><Icon name="mdi:github" class="h-7" /></a></li>
+            <li class="px-3 hover:text-orange-600"><a href="mailto:fabian.kirschner@gmail.com"><Icon name="tabler:mail" class="h-7" /></a></li>
           </ul>
         </li>
       </ul>
