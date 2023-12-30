@@ -23,9 +23,9 @@ const { title=defaultTitle } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="">
-    <div class="h-screen" >
+    <div class="min-h-screen flex flex-col" >
       <Header className="sticky top-0 z-10 h-20 sm:h-24 w-full"/>
-      <main>
+      <main class="grow">
         <slot/>
       </main>
       <Footer className="" />
