@@ -13,10 +13,12 @@ const proseCSS = [
   "prose-headings:text-purple-950",
   "prose-headings:before:relative",
   "prose-headings:before:block",
-  "prose-headings:before:h-36",
-  "prose-headings:before:-mt-36",
   "prose-headings:before:w-0",
   "prose-headings:before:overflow-clip",
+  "prose-headings:before:h-36",
+  "prose-headings:before:-mt-36",
+  "prose-headings:before:sm:h-40",
+  "prose-headings:before:sm:-mt-40",
 ].join(" ");
 
 const tocEnabled = tocHeadings.length > 0 ? true : false;
@@ -79,19 +81,6 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
   const tocChevron = document.getElementById("tocChevron");
   const tocListItems = Array.from(document.querySelectorAll('[id^="tocListItem"]'));
 
-  const toggleToc = () => {
-    ["-rotate-90"].map((val) => tocChevron?.classList.toggle(val));
-    ["hidden"].map((val) => tocDropdown?.classList.toggle(val));
-  };
-  btnToggleToc?.addEventListener("click", toggleToc);
-
-  // close toc when an entry has been clicked
-  tocListItems.forEach((item) => {
-    item?.addEventListener("click", () => {
-      toggleToc();
-    });
-  });
-
   const observer = new IntersectionObserver(
     (entries) => {
       const activeClasses = ["font-bold", "text-slate-900"];
@@ -113,10 +102,48 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
     },
   );
 
-  tocHeadings.forEach((heading) => {
-    const elem = document.getElementById(heading.slug);
-    elem ? observer.observe(elem) : console.error("Error: Getting heading-elem");
-  });
+  const modifyObserver = (headings, start) => {
+    headings.forEach((heading) => {
+      const elem = document.getElementById(heading.slug);
+      if (elem) {
+        if (start) {
+          observer.observe(elem);
+        } else {
+          observer.unobserve(elem);
+        }
+      } else {
+        console.error("Error: Getting heading-elem");
+      }
+    });
+  };
 
+  const startObserving = (headings) => {
+    modifyObserver(headings, true);
+  };
+
+  const stopObserving = (headings) => {
+    modifyObserver(headings, false);
+  };
+
+  const toggleToc = () => {
+    ["-rotate-90"].map((val) => tocChevron?.classList.toggle(val));
+    ["hidden"].map((val) => tocDropdown?.classList.toggle(val));
+
+    if (tocDropdown?.classList.contains("hidden")) {
+      startObserving(tocHeadings);
+    } else {
+      stopObserving(tocHeadings);
+    }
+  };
+
+  // plumbing
+  btnToggleToc?.addEventListener("click", toggleToc);
+  tocListItems.forEach((item) => {
+    // close toc when an entry has been clicked
+    item?.addEventListener("click", () => {
+      toggleToc();
+    });
+  });
+  startObserving(tocHeadings);
   window.onbeforeunload = () => window.scrollTo(0, 0); // to scroll back to the heading on reload and prevent creeping down (not working ideally on chrome yet)
 </script>
