@@ -1,13 +1,122 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import { Fragment } from "react";
+import { Icon } from "astro-icon";
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  tocHeadings?: MarkdownHeading[];
+}
+const { tocHeadings = [] } = Astro.props;
+
+const proseCSS = [
+  "prose-headings:text-purple-950",
+  "prose-headings:before:relative",
+  "prose-headings:before:block",
+  "prose-headings:before:h-36",
+  "prose-headings:before:-mt-36",
+  "prose-headings:before:w-0",
+  "prose-headings:before:overflow-clip",
+].join(" ");
+
+const tocEnabled = tocHeadings.length > 0 ? true : false;
 ---
 
-<BaseLayout>
-  <div class="flex w-full justify-around px-4 py-4 pt-8">
-    <div
-      class="prose w-full !text-purple-950 prose-h1:text-purple-950 prose-h2:text-purple-950 prose-h3:text-purple-950 prose-h4:text-purple-950 prose-h5:text-purple-950 prose-h6:text-purple-950"
-    >
-      <slot class="" />
+<!-- The define:vars directive disables VITE processing of the whole script block - therefore typescript is also not supported. 
+     But this is still better than the alternative of having to create a custom html element and injecting the data there. 
+     At least for now. -->
+<BaseLayout data-tocheadings={tocHeadings}>
+  <div class="flex w-full flex-col justify-around pb-4">
+    {
+      tocEnabled && (
+        <div class="sticky top-20 flex w-full flex-col bg-white pt-2 text-sm sm:top-24 lg:hidden">
+          <div class="flex h-10 border-b pb-2 pl-4">
+            <button id="btnToggleToc" class="flex cursor-pointer items-center rounded-lg border-[1px] border-solid border-slate-300 px-2 text-slate-500">
+              <span>On this page</span>
+              <Icon id="tocChevron" class="ml-2 w-5 -rotate-90 transition-all" name="tabler:chevron-down" />
+            </button>
+            <div class="ml-3 mt-auto flex h-full items-center">
+              <div>
+                <a id="tocCurrentSectionIndicator" href="" />
+              </div>
+            </div>
+          </div>
+          <div id="tocDropdown" class="hidden">
+            <ul class="text-slate-500">
+              {tocHeadings.map((heading: MarkdownHeading) => (
+                // <li class={"border-b pr-2" + "pl-" + (heading.depth * 2).toString()}>
+                <li id={"tocListItem" + heading.slug} class="h-8 border-b pl-2">
+                  <div class="flex h-full items-center">
+                    <a href={"#" + heading.slug} class="pl-4">
+                      {heading.text}
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    }
+
+    <div class="w-full px-4 pt-8 lg:px-10">
+      <div class={"prose mx-auto w-full max-w-[1240px] !text-purple-950" + proseCSS}>
+        <slot class="" />
+      </div>
     </div>
   </div>
 </BaseLayout>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script define:vars={{ tocHeadings: tocHeadings }}>
+  const btnToggleToc = document.getElementById("btnToggleToc");
+  const tocDropdown = document.getElementById("tocDropdown");
+  const tocChevron = document.getElementById("tocChevron");
+  const tocListItems = Array.from(document.querySelectorAll('[id^="tocListItem"]'));
+
+  const toggleToc = () => {
+    ["-rotate-90"].map((val) => tocChevron?.classList.toggle(val));
+    ["hidden"].map((val) => tocDropdown?.classList.toggle(val));
+  };
+  btnToggleToc?.addEventListener("click", toggleToc);
+
+  // close toc when an entry has been clicked
+  tocListItems.forEach((item) => {
+    item?.addEventListener("click", () => {
+      toggleToc();
+    });
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const activeClasses = ["font-bold", "text-slate-900"];
+
+      for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i];
+        if (entry.isIntersecting) {
+          tocListItems.forEach((item) => activeClasses.map((cssClass) => item?.classList.remove(cssClass)));
+
+          activeClasses.map((cssClass) => document.getElementById("tocListItem" + entry.target.id)?.classList.add(cssClass));
+          document.getElementById("tocCurrentSectionIndicator").textContent = entry.target.textContent;
+          break;
+        }
+      }
+    },
+    {
+      rootMargin: "-0px 0% -57%",
+      threshold: 1,
+    },
+  );
+
+  tocHeadings.forEach((heading) => {
+    const elem = document.getElementById(heading.slug);
+    elem ? observer.observe(elem) : console.error("Error: Getting heading-elem");
+  });
+
+  window.onbeforeunload = () => window.scrollTo(0, 0); // to scroll back to the heading on reload and prevent creeping down (not working ideally on chrome yet)
+</script>

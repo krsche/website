@@ -11,9 +11,9 @@ const entry = await getEntry("projects", slug);
 if (entry === undefined) {
   return Astro.redirect("/404");
 }
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 ---
 
-<Markdown>
+<Markdown tocHeadings={headings}>
   <Content />
 </Markdown>
