@@ -1,5 +1,5 @@
 ---
-title: trackdocs irtemp
+title: Trackdocs irtemp
 summary: A tiny multi-channel infrared tire-temperature sensor based on a Melexis MLX90621 FIR.
 slug: trackdocs-irtemp
 titleImages: 
@@ -15,8 +15,6 @@ tags:
   - sensor
   - pcb
 ---
-
-# Trackdocs irtemp
 
 bla
 

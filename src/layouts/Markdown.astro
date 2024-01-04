@@ -13,9 +13,11 @@ if (!lgBreakpoint.endsWith("px")) {
 const lgBreakPointPx = lgBreakpoint.slice(0, -2);
 
 interface Props {
+  title?: string;
+  titleSlug?: string;
   tocHeadings?: MarkdownHeading[];
 }
-const { tocHeadings = [] } = Astro.props;
+const { tocHeadings = [], title = "Overview", titleSlug = "" } = Astro.props;
 
 const proseCSS = [
   "prose-headings:text-purple-950",
@@ -30,6 +32,13 @@ const proseCSS = [
 ].join(" ");
 
 const tocEnabled = tocHeadings.length > 0 ? true : false;
+if (tocEnabled) {
+  tocHeadings.unshift({
+    depth: 1,
+    slug: titleSlug,
+    text: title,
+  });
+}
 ---
 
 <BaseLayout>
@@ -51,14 +60,14 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
           <div>
             <h2 class="hidden pb-2 text-lg font-bold lg:block">On this page</h2>
           </div>
-          <div id="tocDropdown" class="hidden border-b pb-1 pr-4 shadow-lg lg:block lg:overflow-y-scroll lg:border-b-0 lg:shadow-none">
+          <div id="tocDropdown" class="hidden border-b pb-1 pr-4 shadow-lg lg:block lg:overflow-y-scroll lg:border-b-0 lg:pr-2 lg:shadow-none">
             <ul class=" text-slate-500">
               {tocHeadings.map((heading: MarkdownHeading) => (
                 // <li class={"border-b pr-2" + "pl-" + (heading.depth * 2).toString()}>
-                <li id={"tocListItem" + heading.slug} class="h-8 rounded-md border-b pl-2 last:border-none lg:h-7 lg:border-none">
+                <li id={"tocListItem" + heading.slug} class="h-8 rounded-md border-b px-2 last:border-none lg:h-7 lg:border-none">
                   <div class="flex h-full items-center">
-                    <a href={"#" + heading.slug} class="flex w-full justify-between px-4 lg:pl-0">
-                      <span>{heading.text}</span>
+                    <a href={"#" + heading.slug} class="flex w-full justify-between pl-4 pr-1 lg:pl-0">
+                      <span class="overflow-clip text-nowrap">{heading.text}</span>
                       <Icon id="tocCurrentCheckmark" class="my-auto hidden h-4 w-3 rotate-180 text-blue-700" name="maki:arrow" />
                     </a>
                   </div>
@@ -95,7 +104,7 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
 
   const observer = new IntersectionObserver(
     (entries) => {
-      const activeClasses = ["font-semibold", "text-slate-900", "[&_svg]:block", "lg:bg-blue-700", "lg:text-white"];
+      const activeClasses = ["font-semibold", "text-slate-900", "[&_svg]:block", "lg:[&_svg]:hidden", "lg:bg-blue-700", "lg:text-white"];
 
       for (let i = 0; i < entries.length; i++) {
         const entry = entries[i];
