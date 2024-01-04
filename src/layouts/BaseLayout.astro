@@ -24,11 +24,12 @@ const { title = defaultTitle } = Astro.props;
   </head>
   <body class="">
     <div class="flex min-h-screen flex-col">
-      <Header className={"sticky top-0 z-10 w-full"} />
-      <main class="grow">
+      <Header className={"fixed top-0 z-10 w-full"} />
+      <!-- TODO: define header height in a single place -->
+      <main class="mt-20 grow sm:mt-24">
         <slot />
       </main>
-      <Footer className="" />
+      <Footer className="z-10 bg-white" />
     </div>
   </body>
 </html>

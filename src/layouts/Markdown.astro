@@ -3,6 +3,14 @@ import BaseLayout from "./BaseLayout.astro";
 import { Fragment } from "react";
 import { Icon } from "astro-icon";
 import type { MarkdownHeading } from "astro";
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.config.mjs";
+
+const lgBreakpoint = resolveConfig(tailwindConfig).theme.screens.lg;
+if (!lgBreakpoint.endsWith("px")) {
+  console.error("breakpoint definition is not in px!");
+}
+const lgBreakPointPx = lgBreakpoint.slice(0, -2);
 
 interface Props {
   tocHeadings?: MarkdownHeading[];
@@ -24,33 +32,34 @@ const proseCSS = [
 const tocEnabled = tocHeadings.length > 0 ? true : false;
 ---
 
-<!-- The define:vars directive disables VITE processing of the whole script block - therefore typescript is also not supported. 
-     But this is still better than the alternative of having to create a custom html element and injecting the data there. 
-     At least for now. -->
-<BaseLayout data-tocheadings={tocHeadings}>
-  <div class="flex w-full flex-col justify-around pb-4">
+<BaseLayout>
+  <div class="mx-auto flex w-full max-w-screen-xl flex-col justify-around pb-4 lg:flex-row-reverse lg:justify-start">
     {
       tocEnabled && (
-        <div class="sticky top-20 flex w-full flex-col bg-white pt-2 text-sm sm:top-24 lg:hidden">
-          <div class="flex h-10 border-b pb-2 pl-4">
+        <div class="fixed top-20 flex w-full flex-col bg-white pt-2 text-sm sm:top-24 lg:fixed lg:h-full  lg:w-64 lg:border-l lg:pl-4 lg:pt-4">
+          <div class="flex h-10 border-b pb-2 pl-4 lg:hidden">
             <button id="btnToggleToc" class="flex cursor-pointer items-center rounded-lg border-[1px] border-solid border-slate-300 px-2 text-slate-500">
               <span>On this page</span>
               <Icon id="tocChevron" class="ml-2 w-5 -rotate-90 transition-all" name="tabler:chevron-down" />
             </button>
             <div class="ml-3 mt-auto flex h-full items-center">
               <div>
-                <a id="tocCurrentSectionIndicator" href="" />
+                <a id="tocCurrentSectionText" href="" />
               </div>
             </div>
           </div>
-          <div id="tocDropdown" class="hidden">
-            <ul class="text-slate-500">
+          <div>
+            <h2 class="hidden pb-2 text-lg font-bold lg:block">On this page</h2>
+          </div>
+          <div id="tocDropdown" class="hidden border-b pb-1 pr-4 shadow-lg lg:block lg:overflow-y-scroll lg:border-b-0 lg:shadow-none">
+            <ul class=" text-slate-500">
               {tocHeadings.map((heading: MarkdownHeading) => (
                 // <li class={"border-b pr-2" + "pl-" + (heading.depth * 2).toString()}>
-                <li id={"tocListItem" + heading.slug} class="h-8 border-b pl-2">
+                <li id={"tocListItem" + heading.slug} class="h-8 rounded-md border-b pl-2 last:border-none lg:h-7 lg:border-none">
                   <div class="flex h-full items-center">
-                    <a href={"#" + heading.slug} class="pl-4">
-                      {heading.text}
+                    <a href={"#" + heading.slug} class="flex w-full justify-between px-4 lg:pl-0">
+                      <span>{heading.text}</span>
+                      <Icon id="tocCurrentCheckmark" class="my-auto hidden h-4 w-3 rotate-180 text-blue-700" name="maki:arrow" />
                     </a>
                   </div>
                 </li>
@@ -61,7 +70,7 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
       )
     }
 
-    <div class="w-full px-4 pt-8 lg:px-10">
+    <div class="mt-10 w-full px-4 py-8 lg:mr-64 lg:mt-0 lg:px-10">
       <div class={"prose mx-auto w-full max-w-[1240px] !text-purple-950" + proseCSS}>
         <slot class="" />
       </div>
@@ -75,7 +84,10 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
   }
 </style>
 
-<script define:vars={{ tocHeadings: tocHeadings }}>
+<!-- The define:vars directive disables VITE processing of the whole script block - therefore typescript is also not supported. 
+     But this is still better than the alternative of having to create a custom html element and injecting the data there. 
+     At least for now. -->
+<script define:vars={{ tocHeadings: tocHeadings, lgBreakPointPx: lgBreakPointPx }}>
   const btnToggleToc = document.getElementById("btnToggleToc");
   const tocDropdown = document.getElementById("tocDropdown");
   const tocChevron = document.getElementById("tocChevron");
@@ -83,7 +95,7 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
 
   const observer = new IntersectionObserver(
     (entries) => {
-      const activeClasses = ["font-bold", "text-slate-900"];
+      const activeClasses = ["font-semibold", "text-slate-900", "[&_svg]:block", "lg:bg-blue-700", "lg:text-white"];
 
       for (let i = 0; i < entries.length; i++) {
         const entry = entries[i];
@@ -91,13 +103,14 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
           tocListItems.forEach((item) => activeClasses.map((cssClass) => item?.classList.remove(cssClass)));
 
           activeClasses.map((cssClass) => document.getElementById("tocListItem" + entry.target.id)?.classList.add(cssClass));
-          document.getElementById("tocCurrentSectionIndicator").textContent = entry.target.textContent;
+          document.getElementById("tocCurrentSectionText").textContent = entry.target.textContent;
+          document.getElementById("tocCurrentSectionText").setAttribute("href", "#" + entry.target.id);
           break;
         }
       }
     },
     {
-      rootMargin: "-0px 0% -57%",
+      rootMargin: "96px 0% -67%",
       threshold: 1,
     },
   );
@@ -135,6 +148,23 @@ const tocEnabled = tocHeadings.length > 0 ? true : false;
       stopObserving(tocHeadings);
     }
   };
+
+  const footerObserver = new IntersectionObserver(
+    (entries) => {
+      // should only be one entry but still its an array so lets foreach
+      entries.forEach((entry) => {
+        if (window.screen.width >= lgBreakPointPx) {
+          const heightAbove = tocDropdown.getBoundingClientRect().top;
+          const currentFooterHeight = entry.intersectionRect.height;
+          tocDropdown.style.setProperty("height", window.screen.height - heightAbove - currentFooterHeight + "px");
+        }
+      });
+    },
+    {
+      threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    },
+  );
+  footerObserver.observe(document.getElementById("footer"));
 
   // plumbing
   btnToggleToc?.addEventListener("click", toggleToc);
