@@ -10,7 +10,7 @@ const images = import.meta.glob("/src/content/blog/images/*.{jpeg,jpg,png,gif,sv
 <Default>
   <div class="mx-auto mt-8 max-w-7xl text-purple-950 xxs:px-1 sm:mt-12 sm:px-3">
     {
-      entries.map((entry) => (
+      entries.reverse().map((entry) => (
         <a href={`/blog/${entry.slug}`}>
           <div class="my-12 grid items-center lg:grid-cols-2">
             <div class="">
