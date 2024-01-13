@@ -6,6 +6,12 @@ Built using astro and hosted on vercel.
 
 - Add requirements to Readme
 - a nice green instead of purple
+- fix exiftool pre-commit hook not adding files to stage after modification & only applying on staged / modified images
+- add build step in ci to make build issues visible in gh
+- add lighthouse check in ci
+- improve lighthouse scores
+- TIL section
+- Fix ublock origin users not being counted by plausible (server side events or dynamic routing)
 
 ## NPM Commands
 

@@ -32,4 +32,9 @@ const { title = defaultTitle } = Astro.props;
       <Footer className="z-10 bg-white" />
     </div>
   </body>
+  <!-- Plausible Analytics Integration - localhost will be ignored by the plausible script, even when overwriting data-domain with an actual domain. -->
+  <!-- This there is a redirect set up in astro.config.js to plausible.io for the below resources. This circumvents blocking by some tracking7ad-blockers -->
+  <!-- ublock origin (and probably others) still block it though by using this approach, see js console "net::ERR_BLOCKED_BY_CLIENT" -->
+  <!-- Maybe dynamic routing could help here, or sending events on the server side. TODO -->
+  <script defer src="/plausible/js/script.js" data-api="/plausible/api/event" data-domain={Astro.url.hostname}></script>
 </html>
