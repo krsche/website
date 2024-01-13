@@ -7,8 +7,7 @@ interface Props {
 const { className = "" } = Astro.props;
 
 const footer_links = {
-  // Imprint: "/imprint",
-  // "Data Protection": "/dataprotection",
+  "Privacy Policy": "/privacy",
 };
 
 const quote = "Be curious, break, fix and improve - Keep moving forward!";
@@ -22,13 +21,13 @@ const quote = "Be curious, break, fix and improve - Keep moving forward!";
 
       <!-- Links -->
       <ul class="ml-6 flex flex-col gap-x-5 xs:flex-row">
-        <!-- {
+        {
           Object.entries(footer_links).map(([name, slug]) => (
             <li class="whitespace-nowrap capitalize text-slate-500 hover:text-orange-600">
               <a href={slug}>{name}</a>
             </li>
           ))
-        } -->
+        }
       </ul>
     </div>
   </div>
