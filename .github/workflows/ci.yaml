@@ -31,10 +31,19 @@ jobs:
           else
             commitlint -V --from HEAD~1
           fi
-  
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - run: npm ci
+      - run: npm run build
+
   release:
     if: github.ref == 'refs/heads/main'
-    needs: commitlint
+    needs: [commitlint, build]
     runs-on: ubuntu-22.04
     permissions:
       contents: write       # for creating the gh release
