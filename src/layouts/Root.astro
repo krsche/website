@@ -1,6 +1,4 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 interface Props {
   title?: string;
 }
@@ -23,14 +21,7 @@ const { title = defaultTitle } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="">
-    <div class="flex min-h-screen flex-col">
-      <Header className="fixed top-0 z-10 w-full" />
-      <!-- TODO: define header height in a single place -->
-      <main class=`grow mt-20 sm:mt-24`>
-        <slot />
-      </main>
-      <Footer className="z-10 bg-white" />
-    </div>
+    <slot />
   </body>
   <!-- Plausible Analytics Integration - localhost will be ignored by the plausible script, even when overwriting data-domain with an actual domain. -->
   <!-- This there is a redirect set up in astro.config.js to plausible.io for the below resources. This circumvents blocking by some tracking7ad-blockers -->

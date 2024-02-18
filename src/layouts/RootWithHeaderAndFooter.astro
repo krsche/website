@@ -1,0 +1,16 @@
+---
+import Root from "./Root.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Root>
+  <div class="flex min-h-screen flex-col">
+    <Header className="fixed top-0 z-10 w-full" />
+    <!-- TODO: define header height in a single place -->
+    <main class=`grow mt-20 sm:mt-24`>
+      <slot />
+    </main>
+    <Footer className="z-10 bg-white" />
+  </div>
+</Root>

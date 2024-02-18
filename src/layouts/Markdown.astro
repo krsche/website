@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
+import RootWithHeaderAndFooter from "./RootWithHeaderAndFooter.astro";
 import { Fragment } from "react";
 import { Icon } from "astro-icon";
 import type { MarkdownHeading } from "astro";
@@ -40,7 +40,7 @@ if (tocEnabled) {
 }
 ---
 
-<BaseLayout>
+<RootWithHeaderAndFooter>
   <div class="mx-auto flex w-full max-w-screen-xl flex-col justify-around pb-4 lg:flex-row-reverse lg:justify-start">
     {
       tocEnabled && (
@@ -84,7 +84,7 @@ if (tocEnabled) {
       </div>
     </div>
   </div>
-</BaseLayout>
+</RootWithHeaderAndFooter>
 
 <style is:global>
   html {
