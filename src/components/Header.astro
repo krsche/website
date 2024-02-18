@@ -7,10 +7,8 @@ import { Icon } from "astro-icon";
 
 interface Props {
   className?: String;
-  heightSmRem?: String;
-  heightXsRem?: String;
 }
-const { className = "", heightSmRem = "6rem", heightXsRem = "5rem" } = Astro.props;
+const { className = "" } = Astro.props;
 
 const pages = {
   home: "/",
@@ -33,7 +31,7 @@ const current_slug = Astro.url.pathname; // TODO: Highlight which page the user 
   });
 </script>
 
-<Popover id="headerMain" className={`${className} border-b-2 border-gray-100 bg-white bg-white text-purple-950`}>
+<Popover id="headerMain" className={`${className} border-b-2 border-gray-100 bg-white bg-white`}>
   <div id="headerContainer" class="mx-auto max-w-7xl px-4 transition-all sm:px-6">
     <!-- the class xs:h-full is set here explicitely again, so that if the height is expanded, it gets restored to normal if width increases. -->
     <div class={`flex items-center justify-between h-20 sm:h-24`}>
@@ -47,17 +45,19 @@ const current_slug = Astro.url.pathname; // TODO: Highlight which page the user 
       <!-- Links -->
       <button id="btnToggleMenuPopover" class="z-30 mx-6 mt-1.5 w-8 cursor-pointer xs:hidden">
         <div class="z-20 transition-all">
-          <span id="menuIconBar1" class="mb-2.5 block h-0.5 w-full bg-purple-950 transition-all"></span>
-          <span id="menuIconBar3" class="block h-0.5 w-full bg-purple-950 transition-all"></span>
+          <span id="menuIconBar1" class="mb-2.5 block h-0.5 w-full bg-black transition-all"></span>
+          <span id="menuIconBar3" class="block h-0.5 w-full bg-black transition-all"></span>
         </div>
       </button>
 
       <div class="hidden grid-cols-1 xs:grid">
-        <ul class="z-10 col-start-1 row-start-1 flex h-5 text-sm font-medium capitalize">
+        <ul class="z-10 col-start-1 row-start-1 flex h-5 text-sm font-medium">
           {
             Object.entries(pages).map(([name, slug]) => (
-              <li class="px-3 hover:text-orange-600">
-                <a href={slug}>{name}</a>
+              <li class="px-3">
+                <MyLink href={slug} hoverUnderline capitalize>
+                  {name}
+                </MyLink>
               </li>
             ))
           }
@@ -75,11 +75,13 @@ const current_slug = Astro.url.pathname; // TODO: Highlight which page the user 
     </div>
 
     <div id="menuOverlay" class="flex hidden h-full w-full -translate-y-12 flex-col items-center justify-around transition-all duration-500 xs:hidden">
-      <ul class="flex flex-col items-center text-2xl font-medium capitalize">
+      <ul class="flex flex-col items-center text-2xl font-medium">
         {
           Object.entries(pages).map(([name, slug]) => (
-            <li class="mb-5 hover:text-orange-600">
-              <a href={slug}>{name}</a>
+            <li class="mb-5">
+              <MyLink href={slug} hoverUnderline capitalize>
+                {name}
+              </MyLink>
             </li>
           ))
         }

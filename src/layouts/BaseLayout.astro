@@ -1,7 +1,6 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import tailwindConfig from "../../tailwind.config.mjs";
 interface Props {
   title?: string;
 }
@@ -11,10 +10,6 @@ const pageName = slugNoSlash == "" ? "Home" : slugNoSlash.charAt(0).toUpperCase(
 const defaultTitle = "KF | " + pageName;
 
 const { title = defaultTitle } = Astro.props;
-
-const headerHeightXsRem = 5; // don't forget to update the values in the script block on the client too
-const headerHeightSmRem = 6;
-const smScreenSizePx = tailwindConfig.theme.screens.sm.split("px")[0];
 ---
 
 <!doctype html>
@@ -29,33 +24,9 @@ const smScreenSizePx = tailwindConfig.theme.screens.sm.split("px")[0];
   </head>
   <body class="">
     <div class="flex min-h-screen flex-col">
-      <Header className={"fixed top-0 z-10 w-full"} heightXsRem={`${headerHeightXsRem}rem`} heightSmRem={`${headerHeightSmRem}rem`} />
+      <Header className="fixed top-0 z-10 w-full" />
       <!-- TODO: define header height in a single place -->
-      <main class=`hidden mt-20 sm:mt-24`>
-        <!-- Ensure proper fullscreen on <main />
-        Didn't achieve this with just css. See the git history.
-        Script is loaded inline to prevent CLS. -> hardcoded smScreenSize :(
-        Some kind of pre-processor would be nice here... I'm sure there is a better way. -->
-        <script
-          is:inline
-          define:vars={{
-            headerHeightXsRem: headerHeightXsRem,
-            headerHeightSmRem: headerHeightSmRem,
-            smScreenSizePx: smScreenSizePx,
-          }}
-        >
-          const remInPx = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-          const mainElem = document.getElementsByTagName("main")[0];
-
-          if (mainElem) {
-            if (window.screen.width < smScreenSizePx) {
-              mainElem.style.height = window.screen.height - remInPx(headerHeightXsRem) + "px";
-            } else {
-              mainElem.style.height = window.screen.height - remInPx(headerHeightSmRem) + "px";
-            }
-            mainElem.classList.remove("hidden");
-          }
-        </script>
+      <main class=`grow mt-20 sm:mt-24`>
         <slot />
       </main>
       <Footer className="z-10 bg-white" />
