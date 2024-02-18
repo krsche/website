@@ -20,7 +20,6 @@ interface Props {
 const { tocHeadings = [], title = "Overview", titleSlug = "" } = Astro.props;
 
 const proseCSS = [
-  "prose-headings:text-purple-950",
   "prose-headings:before:relative",
   "prose-headings:before:block",
   "prose-headings:before:w-0",
@@ -80,7 +79,7 @@ if (tocEnabled) {
     }
 
     <div class="mt-10 w-full px-4 py-8 lg:mr-64 lg:mt-0 lg:px-10">
-      <div class={"prose mx-auto w-full max-w-[1240px] !text-purple-950" + proseCSS}>
+      <div class={"prose mx-auto w-full max-w-[1240px]" + proseCSS}>
         <slot class="" />
       </div>
     </div>
@@ -104,7 +103,7 @@ if (tocEnabled) {
 
   const observer = new IntersectionObserver(
     (entries) => {
-      const activeClasses = ["font-semibold", "text-slate-900", "[&_svg]:block", "lg:[&_svg]:hidden", "lg:bg-blue-700", "lg:text-white"];
+      const activeClasses = ["font-semibold", "text-slate-900", "[&_svg]:block", "lg:[&_svg]:hidden", "lg:bg-slate-700", "lg:text-white"];
 
       for (let i = 0; i < entries.length; i++) {
         const entry = entries[i];

@@ -9,13 +9,13 @@ const images = import.meta.glob("/src/content/projects/images/**/*.{jpeg,jpg,png
 ---
 
 <Default>
-  <div class="mx-auto my-6 max-w-7xl text-purple-950 xxs:px-1 xs:px-2 lg:my-10 lg:px-3">
+  <div class="mx-auto my-6 max-w-7xl xxs:px-1 xs:px-2 lg:my-10 lg:px-3">
     <h1 class="text-center text-4xl xs:text-5xl">Projects</h1>
     <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:mt-14 xl:gap-y-12">
       {
         entries.map((entry) => (
           <a href={`/projects/${entry.slug}`}>
-            <div class="flex w-full flex-col text-purple-950">
+            <div class="flex w-full flex-col">
               <div class="flex h-64 w-full flex-row">
                 {entry.data.titleImages.map((image) => (
                   <Image

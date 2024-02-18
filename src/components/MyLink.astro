@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  capitalize?: boolean;
+  hoverUnderline?: boolean;
+  className?: string;
+  [key: string]: any;
+}
+
+// Set bg-slate-100 as defaultClass so that the component has a background before the real image is loaded (pretty loading-state)
+const { href, capitalize = false, hoverUnderline = false, className = "", ...attrs } = Astro.props;
+
+const hoverClassesUnderline = "hover:underline hover:decoration-2 hover:underline-offset-2";
+const hoverClassesHighlight = "hover:font-bold";
+const hoverClasses = hoverUnderline ? hoverClassesUnderline : hoverClassesHighlight;
+---
+
+<a href={href} class={`${capitalize && "capitalize"} whitespace-nowrap ${hoverClasses} ${className}`}><slot /></a>

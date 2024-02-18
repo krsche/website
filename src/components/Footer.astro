@@ -1,5 +1,6 @@
 ---
 import { Popover } from "@headlessui/react";
+import MyLink from "./MyLink.astro";
 
 interface Props {
   className?: String;
@@ -13,7 +14,7 @@ const footer_links = {
 const quote = "Be curious, break, fix and improve";
 ---
 
-<Popover id="footer" className={`${className} border-t-2 border-gray-100 text-purple-950`}>
+<Popover id="footer" className={`${className} border-t-2 border-gray-100 `}>
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
     <div class="flex items-center justify-between py-6 text-xs">
       <!-- Quote (left) -->
@@ -23,8 +24,10 @@ const quote = "Be curious, break, fix and improve";
       <ul class="ml-6 flex flex-col gap-x-5 xs:flex-row">
         {
           Object.entries(footer_links).map(([name, slug]) => (
-            <li class="whitespace-nowrap capitalize text-slate-500 hover:text-orange-600">
-              <a href={slug}>{name}</a>
+            <li class="">
+              <MyLink href={slug} hoverUnderline className="hover:decoration-1">
+                {name}
+              </MyLink>
             </li>
           ))
         }

@@ -8,7 +8,7 @@ const images = import.meta.glob("/src/content/blog/images/*.{jpeg,jpg,png,gif,sv
 ---
 
 <Default>
-  <div class="mx-auto mt-8 max-w-7xl text-purple-950 xxs:px-1 sm:mt-12 sm:px-3">
+  <div class="mx-auto mt-8 max-w-7xl xxs:px-1 sm:mt-12 sm:px-3">
     {
       entries
         .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
