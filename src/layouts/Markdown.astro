@@ -28,6 +28,8 @@ const proseCSS = [
   "prose-headings:before:-mt-36",
   "prose-headings:before:sm:h-40",
   "prose-headings:before:sm:-mt-40",
+  "prose-li:mt-0",
+  "prose-li:mb-0",
 ].join(" ");
 
 const tocEnabled = tocHeadings.length > 0 ? true : false;
@@ -78,8 +80,8 @@ if (tocEnabled) {
       )
     }
 
-    <div class="mt-10 w-full px-4 py-8 lg:mr-64 lg:mt-0 lg:px-10">
-      <div class={"prose mx-auto w-full max-w-[1240px]" + proseCSS}>
+    <div class={"mt-10 w-full px-4 py-8 lg:px-10" + (tocEnabled ? " lg:mr-64" : "")}>
+      <div class={"prose mx-auto w-full max-w-[1240px] " + proseCSS}>
         <slot class="" />
       </div>
     </div>
