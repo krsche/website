@@ -30,7 +30,12 @@ On Linux, with tcpdump, easy enough.
 2. Now your terminal is blocked, so hit __`Ctrl + Z`__ to halt the current process and then continue it in the background by running the __`bg`__ command
 3. Then run the command where we want to capture the packets from, __`docker pull nginx`__ for example and abort it with __`Ctrl + C`__ once you think the network requests have been made.
 4. Stop the packet capture by bringing the background process back into the foreground with __`fg`__ and stopping it with __`Ctrl + C`__
-5. Finally we can read the captured packets with __`sudo tcpdump -r /tmp/http2.log | less`__ or directly filter them for the process we're interested in with __`sudo tcpdump -r /tmp/http2.log | grep docker`__. If we want to look at the payload of the packets add the __`-A`__ flag to tcpdump, but usually this is neither required, nor readable with TLS.
+5. Finally we can read the captured packets with __`sudo tcpdump -r /tmp/http.log | less`__ or directly filter them for the process we're interested in with __`sudo tcpdump -r /tmp/http.log | grep docker`__. If we want to look at the payload of the packets add the __`-A`__ flag to tcpdump, but usually this is neither required, nor readable with TLS.
+
+> __ℹ️ Note__
+>
+> Sometimes it's necessary to change the file permission of the _http.log_ file after capturing and before viewing.  
+> You can do this with `chmod 0644 /tmp/http.log` or change the owning user with `chown $USER /tmp/http.log`
 
 Now it's just a matter of you looking through the requests for the URLs you can spot. For my docker example, I could identify:
 
