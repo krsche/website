@@ -1,0 +1,46 @@
+---
+import Root from "../layouts/Root.astro";
+---
+
+<script src="https://raw.githubusercontent.com/VincentGarreau/particles.js/master/particles.min.js"></script>
+
+<script>
+  import * as d3 from "d3";
+  const svg = d3.select("svg");
+  svg.append("circle").attr("cx", "50%").attr("cy", "50%").attr("r", 100).attr("fill", "orange");
+
+  const data = [1, 2, 3, 4, 5];
+
+  function getGridOf2DPoints(width: number, height: number, spacing: number, startSpacing: number) {
+    const points = [];
+    for (let y = startSpacing; y < height; y += spacing) {
+      for (let x = startSpacing; x < width; x += spacing) {
+        points.push([x, y]);
+      }
+    }
+    return points;
+  }
+  const spacing = 20;
+
+  const x = window.screen.width;
+  const y = window.screen.height;
+  const grid = getGridOf2DPoints(x, y, spacing, spacing);
+
+  console.log(grid);
+
+  svg
+    .selectAll("svg")
+    .data(grid)
+    .enter()
+    .append("circle")
+    .attr("cx", (d: [number, number]) => `${d[0]}px`)
+    .attr("cy", (d: [number, number]) => `${d[1]}px`)
+    .attr("r", 1)
+    .attr("fill", "black");
+</script>
+
+<Root>
+  <div class="h-screen w-screen bg-green-200">
+    <svg class="h-full w-full"></svg>
+  </div>
+</Root>

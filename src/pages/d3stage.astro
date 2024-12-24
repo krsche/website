@@ -1,0 +1,104 @@
+---
+import Root from "../layouts/Root.astro";
+
+const fontSerif = "font-['Times_New_Roman'] tracking-wide";
+const fontMono = "font-mono font-extrabold uppercase tracking-wide";
+const fontSans = "font-['Roboto'] font-extrabold uppercase tracking-normal";
+const font = fontSans;
+
+const border = true ? "border-[3px] border-white-500" : "";
+---
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+</style>
+
+<script>
+  import * as d3 from "d3";
+  const svg = d3.select("#dots");
+  const elem = document.getElementById("dots");
+
+  function getGridOf2DPoints(width: number, height: number, spacing: number, startSpacing: number) {
+    const points = [] as Array<[number, number]>;
+    for (let y = startSpacing; y < height; y += spacing) {
+      for (let x = startSpacing; x < width; x += spacing) {
+        points.push([x, y]);
+      }
+    }
+    return points;
+  }
+  const spacing = 2;
+
+  const x = elem?.clientWidth || 0;
+  const y = elem?.clientHeight || 0;
+  const grid = getGridOf2DPoints(x, y, spacing, spacing);
+
+  console.log(grid);
+
+  svg
+    .selectAll("svg")
+    .data(grid)
+    .enter()
+    .append("circle")
+    .attr("cx", (d: [number, number]) => `${d[0]}px`)
+    .attr("cy", (d: [number, number]) => `${d[1]}px`)
+    .attr("r", 1)
+    .attr("opacity", "15%")
+    // .attr("fill", "#20293a");
+    .attr("fill", "#121826");
+</script>
+
+<Root>
+  <div class="flex h-screen w-screen flex-col items-center justify-start bg-gray-950">
+    <div class=`mt-6 flex h-28 w-full max-w-5xl items-center justify-around bg-gray-950 ${border} relative`>
+      <div class=`flex text-5xl text-white ${font}`>
+        <span class="text" class=""></span>
+        <div class="caret ml-1 h-12 w-1 translate-y-0 bg-white"></div>
+      </div>
+      <svg class="absolute h-full w-full" id="dots"></svg>
+    </div>
+
+    <script>
+      const elements = document.getElementsByClassName("text");
+      console.log(elements);
+      const text = "I don't wanna keep you waiting but";
+
+      function typeWriter(elem, text, index = 0) {
+        if (!elem) return;
+        if (index === 0) elem.textContent = "";
+        if (index >= text.length) return;
+        elem.textContent += text[index];
+        setTimeout(() => typeWriter(elem, text, index + 1), 100);
+      }
+
+      function typeWriterReset(elem, timeout) {
+        if (!elem) return;
+        if (elem.textContent.length === 0) return;
+        elem.textContent = elem.textContent.slice(0, -1);
+        setTimeout(() => typeWriterReset(elem, timeout), timeout);
+      }
+
+      Array.from(elements).forEach((elem) => {
+        const run = () => {
+          typeWriter(elem, text);
+          setTimeout(() => typeWriterReset(elem, 50), 6000);
+        };
+        run();
+        setInterval(() => run(), 10000);
+      });
+
+      function blink(elem, minOpacity = "0", maxOpacity = "1") {
+        if (!elem) return;
+        elem.style.opacity = elem.style.opacity == maxOpacity ? minOpacity : maxOpacity;
+      }
+      const carets = document.getElementsByClassName("caret");
+      console.log(carets);
+
+      Array.from(carets).forEach((elem) =>
+        setInterval(() => {
+          blink(elem);
+        }, 500),
+      );
+    </script>
+  </div>
+</Root>
