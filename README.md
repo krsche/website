@@ -11,7 +11,6 @@ Built using astro and hosted on vercel.
 - add lighthouse check in ci
 - improve lighthouse scores
 - TIL section
-- Fix ublock origin users not being counted by plausible (server side events or dynamic routing)
 
 ## NPM Commands
 

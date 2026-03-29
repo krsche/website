@@ -7,9 +7,5 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   output: "server",
   adapter: vercel(),
-  integrations: [react(), tailwind()],
-  redirects: {
-    "/plausible/js/script.js": "https://plausible.io/js/script.js",
-    "/plausible/api/event": "https://plausible.io/api/event",
-  },
+  integrations: [react(), tailwind()]
 });
