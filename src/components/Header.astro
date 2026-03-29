@@ -1,9 +1,8 @@
 ---
-import { Popover } from "@headlessui/react";
 import Image from "../components/MyImage.astro";
 import MyLink from "./MyLink.astro";
 import kfLogo from "../assets/images/kf-logo.svg";
-import { Icon } from "astro-icon";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   className?: String;
@@ -31,7 +30,7 @@ const current_slug = Astro.url.pathname; // TODO: Highlight which page the user 
   });
 </script>
 
-<Popover id="headerMain" className={`${className} border-b-2 border-gray-100 bg-white`}>
+<header id="headerMain" class:list={[className, "border-b-2 border-gray-100 bg-white"]}>
   <div id="headerContainer" class="mx-auto max-w-7xl px-4 transition-all sm:px-6">
     <!-- the class xs:h-full is set here explicitely again, so that if the height is expanded, it gets restored to normal if width increases. -->
     <div class={`flex items-center justify-between h-20 sm:h-24`}>
@@ -101,4 +100,4 @@ const current_slug = Astro.url.pathname; // TODO: Highlight which page the user 
       </ul>
     </div>
   </div>
-</Popover>
+</header>

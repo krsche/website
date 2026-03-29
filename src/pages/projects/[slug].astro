@@ -1,5 +1,5 @@
 ---
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 import Markdown from "../../layouts/Markdown.astro";
 import Image from "../../components/MyImage.astro";
 
@@ -7,37 +7,43 @@ const { slug } = Astro.params;
 if (slug === undefined) {
   throw new Error("Slug is required");
 }
-const entry = await getEntry("projects", slug);
+let entry = await getEntry("projects", slug);
 
 if (entry === undefined) {
   return Astro.redirect("/404");
 }
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 const images = import.meta.glob("/src/content/projects/images/**/*.{jpeg,jpg,png,gif,svg}");
 ---
 
 <Markdown tocHeadings={headings} title={entry.data.title} titleSlug="overview">
-  <h1 id="overview">{entry.data.title}</h1>
-  <div id="gallery" class={`grid w-full grid-cols-2 gap-x-2 gap-y-2`}>
-    {
-      entry.data.titleImages.map((image) => (
-        <a class="titleImageLink" href=""}>
-          <div class="flex w-full flex-row h-56 sm:h-64 lg:h-80">
-            <Image
-              src={images[`/src/content/projects/images/${image}`]()}
-              className="h-full w-1 grow object-cover my-0"
-              width="600"
-              height="800"
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </a>
-      ))
-    }
+  <div class="not-prose space-y-6">
+    <h1 id="overview" class="scroll-mt-28 text-4xl font-extrabold tracking-tight text-slate-900">
+      {entry.data.title}
+    </h1>
+    <div id="gallery" class={`grid w-full grid-cols-2 gap-x-2 gap-y-2`}>
+      {
+        entry.data.titleImages.map((image) => (
+          <a class="titleImageLink" href="#">
+            <div class="flex h-56 w-full flex-row sm:h-64 lg:h-80">
+              <Image
+                src={images[`/src/content/projects/images/${image}`]()}
+                className="my-0 h-full w-1 grow object-cover"
+                width="600"
+                height="800"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </a>
+        ))
+      }
+    </div>
   </div>
-  <Content />
+  <div id="content-section">
+    <Content />
+  </div>
 </Markdown>
 
 <script>

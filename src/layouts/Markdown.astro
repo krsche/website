@@ -1,16 +1,9 @@
 ---
 import RootWithHeaderAndFooter from "./RootWithHeaderAndFooter.astro";
 import { Fragment } from "react";
-import { Icon } from "astro-icon";
+import { Icon } from "astro-icon/components";
 import type { MarkdownHeading } from "astro";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../tailwind.config.mjs";
-
-const lgBreakpoint = resolveConfig(tailwindConfig).theme.screens.lg;
-if (!lgBreakpoint.endsWith("px")) {
-  console.error("breakpoint definition is not in px!");
-}
-const lgBreakPointPx = lgBreakpoint.slice(0, -2);
+const lgBreakPointPx = 1024;
 
 interface Props {
   title?: string;
@@ -81,7 +74,7 @@ if (tocEnabled) {
     }
 
     <div class={"mt-10 w-full px-4 py-8 lg:px-10" + (tocEnabled ? " lg:mr-64" : "")}>
-      <div class={"prose mx-auto w-full max-w-[1240px] " + proseCSS}>
+      <div class={"prose prose-slate mx-auto w-full max-w-[1240px] " + proseCSS}>
         <slot class="" />
       </div>
     </div>
@@ -97,7 +90,7 @@ if (tocEnabled) {
 <!-- The define:vars directive disables VITE processing of the whole script block - therefore typescript is also not supported. 
      But this is still better than the alternative of having to create a custom html element and injecting the data there. 
      At least for now. -->
-<script define:vars={{ tocHeadings: tocHeadings, lgBreakPointPx: lgBreakPointPx }}>
+<script is:inline define:vars={{ tocHeadings: tocHeadings, lgBreakPointPx: lgBreakPointPx }}>
   const btnToggleToc = document.getElementById("btnToggleToc");
   const tocDropdown = document.getElementById("tocDropdown");
   const tocChevron = document.getElementById("tocChevron");

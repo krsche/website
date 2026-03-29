@@ -14,7 +14,7 @@ const images = import.meta.glob("/src/content/projects/images/**/*.{jpeg,jpg,png
     <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:mt-14 xl:gap-y-12">
       {
         entries.map((entry) => (
-          <a href={`/projects/${entry.slug}`}>
+          <a href={`/projects/${entry.id}`}>
             <div class="flex w-full flex-col">
               <div class="flex h-64 w-full flex-row">
                 {entry.data.titleImages.map((image) => (

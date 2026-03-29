@@ -1,8 +1,10 @@
-import { z, defineCollection } from "astro:content";
+import { defineCollection } from "astro/content/config";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
-// see https://docs.astro.build/en/guides/content-collections/#defining-collections
+// see https://docs.astro.build/en/guides/content-collections/
 const projectsCollection = defineCollection({
-  type: "content", // 'content' for markdown, 'data' for json/yaml
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -12,7 +14,7 @@ const projectsCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  type: "content", // 'content' for markdown, 'data' for json/yaml
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     timetoreadmins: z.number(),

@@ -1,5 +1,5 @@
 ---
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 import Markdown from "../../layouts/Markdown.astro";
 import Image from "../../components/MyImage.astro";
 
@@ -11,7 +11,7 @@ const entry = await getEntry("blog", slug);
 if (entry === undefined) {
   return Astro.redirect("/404");
 }
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 const images = import.meta.glob("../../content/blog/images/*.{jpeg,jpg,png,gif,svg}");
 const image = images[`../../content/blog/images/${entry.data.image}`]();
