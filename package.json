@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "rm-image-metadata": "find src \\( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.gif' \\) -exec exiftool -all= -tagsfromfile @ -Orientation -overwrite_original {} \\;"
+    "rm-image-metadata": "bash scripts/strip-staged-image-metadata.sh"
   },
   "pre-commit": [
     "rm-image-metadata"
