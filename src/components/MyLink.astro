@@ -15,4 +15,7 @@ const hoverClassesHighlight = "hover:font-bold";
 const hoverClasses = hoverUnderline ? hoverClassesUnderline : hoverClassesHighlight;
 ---
 
-<a href={href} class={`${capitalize && "capitalize"} whitespace-nowrap ${hoverClasses} ${className}`}><slot /></a>
+<a
+  {...attrs}
+  href={href}
+  class={`${capitalize && "capitalize"} whitespace-nowrap ${hoverClasses} ${className}`}><slot /></a>
